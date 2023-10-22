@@ -1,5 +1,5 @@
 //
-//  FormTextView.swift
+//  FormTextField.swift
 //  FoodPin
 //
 //  Created by Артем Сергеев on 18.10.2023.
@@ -7,37 +7,35 @@
 
 import SwiftUI
 
-struct FormTextView: View {
-	
+
+struct FormTextField: View {
 	let label: String
-	var height: CGFloat = 200.0
+	var placeholder: String = ""
 	
 	@Binding var value: String
 	
 	var body: some View {
-		
 		VStack(alignment: .leading) {
-			
 			Text(label.uppercased())
 				.font(.system(.headline, design: .rounded))
 				.foregroundColor(Color(.darkGray))
 			
-			TextEditor(text: $value)
-				.frame(maxWidth: .infinity)
-				.frame(height: height)
+			TextField(placeholder, text: $value)
+				.font(.system(.body, design: .rounded))
+				.textFieldStyle(PlainTextFieldStyle())
 				.padding(10)
 				.overlay(
 					RoundedRectangle(cornerRadius: 5)
 						.stroke(Color(.systemGray5), lineWidth: 1)
 				)
-				.padding(.top, 10)
+				.padding(.vertical, 10)
 			
 		}
 	}
 }
 
 #Preview {
-	FormTextView(label: "Description", value: .constant(""))
-		.previewLayout(.sizeThatFits)
-		.previewDisplayName("FormTextView")
+	FormTextField(label: "NAME", placeholder: "Fill in the restaurant name", value: .constant(""))
+		.previewLayout(.fixed(width: 300, height: 200))
+		.previewDisplayName("FormTextField")
 }

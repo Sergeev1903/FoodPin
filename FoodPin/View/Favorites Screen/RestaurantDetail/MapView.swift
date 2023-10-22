@@ -8,16 +8,17 @@
 import SwiftUI
 import MapKit
 
+
 struct MapView: View {
-	
 	var location: String = ""
-	
-	@State private var annotatedItem: AnnotatedItem = AnnotatedItem(coordinate: CLLocationCoordinate2D(latitude: 51.510357, longitude: -0.116773))
+	var interactionMode: MapInteractionModes = .all
 	
 	@State private var region: MKCoordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.510357, longitude: -0.116773), span: MKCoordinateSpan(latitudeDelta: 1.0, longitudeDelta: 1.0))
 	
+	@State private var annotatedItem: AnnotatedItem = AnnotatedItem(coordinate: CLLocationCoordinate2D(latitude: 51.510357, longitude: -0.116773))
+	
 	var body: some View {
-		Map(coordinateRegion: $region, interactionModes: .all, annotationItems: [annotatedItem]) { item in
+		Map(coordinateRegion: $region, interactionModes: interactionMode, annotationItems: [annotatedItem]) { item in
 			MapMarker(coordinate: item.coordinate, tint: .red)
 		}
 		.task {
@@ -25,8 +26,8 @@ struct MapView: View {
 		}
 	}
 	
-	
 	private func convertAddress(location: String) {
+		
 		// Get location
 		let geoCoder = CLGeocoder()
 		
@@ -35,18 +36,17 @@ struct MapView: View {
 				print(error.localizedDescription)
 				return
 			}
+			
 			guard let placemarks = placemarks,
 						let location = placemarks[0].location else {
 				return
 			}
-			self.region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.0015, longitudeDelta: 0.0015))
 			
+			self.region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.0015, longitudeDelta: 0.0015))
 			self.annotatedItem = AnnotatedItem(coordinate: location.coordinate)
 		})
 	}
-	
 }
-
 
 struct AnnotatedItem: Identifiable {
 	let id = UUID()

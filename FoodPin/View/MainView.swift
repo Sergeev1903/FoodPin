@@ -1,18 +1,18 @@
 //
-//  TutorialView.swift
+//  MainView.swift
 //  FoodPin
 //
-//  Created by Артем Сергеев on 21.10.2023.
+//  Created by Артем Сергеев on 22.10.2023.
 //
 
 import SwiftUI
 
-struct TutorialView: View {
+struct MainView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    TutorialView()
+    MainView()
 }

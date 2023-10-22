@@ -7,11 +7,12 @@
 
 import SwiftUI
 
+
 struct BasicTextImageRow: View {
 	
 	// MARK: - Binding
 	
-	@Binding var restaurant: Restaurant
+	@ObservedObject var restaurant: Restaurant
 	
 	// MARK: - State variables
 	
@@ -20,7 +21,7 @@ struct BasicTextImageRow: View {
 	
 	var body: some View {
 		HStack(alignment: .top, spacing: 20) {
-			Image(restaurant.image)
+			Image(uiImage: UIImage(data: restaurant.image) ?? UIImage())
 				.resizable()
 				.frame(width: 120, height: 118)
 				.cornerRadius(20)
@@ -41,7 +42,7 @@ struct BasicTextImageRow: View {
 				Spacer()
 				
 				Image(systemName: "heart.fill")
-					.foregroundColor(.appAccent)
+					.foregroundColor(.yellow)
 			}
 		}
 		.contextMenu {
@@ -82,17 +83,17 @@ struct BasicTextImageRow: View {
 			
 			let defaultText = "Just checking in at \(restaurant.name)"
 			
-			if let imageToShare = UIImage(named: restaurant.image) {
+			if let imageToShare = UIImage(data: restaurant.image) {
 				ActivityView(activityItems: [defaultText, imageToShare])
 			} else {
 				ActivityView(activityItems: [defaultText])
 			}
 		}
+		
 	}
 }
 
 #Preview {
-	BasicTextImageRow(restaurant: .constant(Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", location: "G/F, 72 Po Hing Fong, Sheung Wan, Hong Kong", phone: "232-923423", description: "Searching for great breakfast eateries and coffee? This place is for you. We open at 6:30 every morning, and close at 9 PM. We offer espresso and espresso based drink, such as capuccino, cafe latte, piccolo and many more. Come over and enjoy a great meal.", image: "cafedeadend", isFavorite: false)))
+	BasicTextImageRow(restaurant: (PersistenceController.testData?.first)!)
 		.previewLayout(.sizeThatFits)
-		.previewDisplayName("BasicTextImageRow")
 }

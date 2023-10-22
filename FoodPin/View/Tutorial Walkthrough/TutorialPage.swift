@@ -1,5 +1,5 @@
 //
-//  TutorialView.swift
+//  TutorialPage.swift
 //  FoodPin
 //
 //  Created by Артем Сергеев on 21.10.2023.

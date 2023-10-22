@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct FullImageRow: View {
 	
 	var imageName: String
@@ -55,5 +56,4 @@ struct FullImageRow: View {
 #Preview {
 	FullImageRow(imageName: "cafedeadend", name: "Cafe Deadend", type: "Cafe", location: "Hong Kong", isFavorite: .constant(true))
 		.previewLayout(.sizeThatFits)
-		.previewDisplayName("FullImageRow")
 }
